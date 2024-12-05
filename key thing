@@ -1,0 +1,3 @@
+else if (userInput == "e" || userInput == "E")
+				inventory[0] = "key";
+			cout << "You grabbed a key!" << endl;
