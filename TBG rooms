@@ -31,73 +31,72 @@ int main() {
 			break;
 
 		case 3:
-			cout << "you are on island 1, you can go east, type e to grab" << endl;
+			cout << "you are on island 1, you can go east to go back to room 2" << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 2;
-			else if (userInput == "e" || userInput == "E")
-				inventory[0] = "key";
-			cout << "You grabbed a key!" << endl;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 4:
-			cout << "you are on island 1, you can go east, type e to grab" << endl;
+			cout << "you are in room 3, you can go west to the shop, east to island 2, or south to next room" << endl;
 			cin >> userInput;
-			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
-				room = 2;
-			else if (userInput == "e" || userInput == "E")
-				inventory[0] = "key";
-			cout << "You grabbed a key!" << endl;
+			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
+				room = 5;
+			else if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
+				room = 6;
+			else if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
+				room = 7;
+			
 			break;
 
 		case 5:
-			cout << "you are in room 4, you can go east" << endl;
+			cout << "you are in the shop! you can go east to back to room 3" << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
-				room = 5;
+				room = 4;
 			break;
 
 		case 6:
-			cout << "you are in room 5, you can go south" << endl;
+			cout << "you are on island 2, you can go west to go back to room 3" << endl;
 			cin >> userInput;
-			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				room = 6;
+			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
+				room = 4;
 			break;
 
 		case 7:
-			cout << "you are in room 6, you can go south" << endl;
+			cout << "you are in room 4, you can go west to island 4, east to island 5 or south" << endl;
 			cin >> userInput;
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				room = 7;
-			break;
-
-		case 8:
-			cout << "you are in room 7, you can go east" << endl;
-			cin >> userInput;
-			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
+				room = 10;
+			else if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 8;
-			break;
-
-		case 9:
-			cout << "you are in room 8, you can go east" << endl;
-			cin >> userInput;
-			if (userInput == "east" || userInput == "West" || userInput.compare("go west") == 0)
+			else if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 9;
 			break;
 
+		case 8:
+			cout << "you are on island 5, you can go west to go back to room 4" << endl;
+			cin >> userInput;
+			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
+				room = 7;
+			break;
+
+		case 9:
+			cout << "you are on island 4, you can go east to go back to room 4" << endl;
+			cin >> userInput;
+			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
+				room = 7;
+			break;
+
 		case 10:
-			cout << "you are in room 9, you can go north" << endl;
+			cout << "you are on the final island, find maltipoo!" << endl;
 			cin >> userInput;
 			if (userInput == "north" || userInput == "North" || userInput.compare("go north") == 0)
 				room = 10;
 			break;
 
-		case 11:
-			cout << "you are in room 10, you can go south" << endl;
-			cin >> userInput;
-			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				room = 9;
-			break;
 		}
 
 
