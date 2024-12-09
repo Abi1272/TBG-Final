@@ -2,21 +2,30 @@
 #include<string>
 using namespace std;
 
-string inventory[4];
+
+string inventory[10];
+
 
 int main() {
 
 	int room = 1;
 	string userInput = "potato"; //dummy value
+	cout << endl << "--------------------------" << endl;
+	cout << "your inventory:";
+	for (int i = 0; i < 10; i++)
+		cout << inventory[i] << " | ";
+	cout << endl;
 
 	while (userInput != "quit") { //game loop
 
 		switch (room) {
 		case 1:
-			cout << "you are in room 1, you can go south" << endl;
+			cout << "You wake up in a dimly lit room with stone walls. The air smells damp and a soft faint sound of water droplets echoed through the room. To the south, you notice a narrow archway with a door far along. It seems the only way foward. Type south to move through the archway into the next room." << endl;
 			getline(cin, userInput);
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
 				room = 2;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 2:
@@ -48,7 +57,8 @@ int main() {
 				room = 6;
 			else if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
 				room = 7;
-			
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 5:
@@ -56,6 +66,8 @@ int main() {
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 4;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 6:
@@ -63,10 +75,12 @@ int main() {
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 4;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 7:
-			cout << "you are in room 4, you can go west to island 4, east to island 5 or south" << endl;
+			cout << "you are in room 4, you can go west to island 4, east to island 5, south to final island or north to go back to room 3" << endl;
 			cin >> userInput;
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
 				room = 10;
@@ -74,6 +88,10 @@ int main() {
 				room = 8;
 			else if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 9;
+			else if (userInput == "north" || userInput == "North" || userInput.compare("go north") == 0)
+				room = 4;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 8:
@@ -81,6 +99,8 @@ int main() {
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 7;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 9:
@@ -88,6 +108,8 @@ int main() {
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 7;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		case 10:
@@ -95,6 +117,8 @@ int main() {
 			cin >> userInput;
 			if (userInput == "north" || userInput == "North" || userInput.compare("go north") == 0)
 				room = 10;
+			else
+				cout << "sorry not an option" << endl;
 			break;
 
 		}
@@ -105,3 +129,25 @@ int main() {
 
 	}//end game loop
 }//end game loop
+
+//function defintion: what the function actually DOES
+void MonsterGen() {
+	int num = rand() % 100 + 1; //generated a random number
+	cout << "we generated " << num << endl;
+
+	if (num < 15) { //15% chance of skele
+		cout << "a skeleton appears!" << endl;
+	}
+	else if (num < 20) { //5% chance of zombie
+		cout << "a zombie attempts to bite you!" << endl;
+	}
+	else if (num < 50) { //30% chance of spider
+		cout << "a spider crawls at you!" << endl;
+	}
+	else if (num < 75) { //25% chance of witch}
+		cout << "oh no, a witch!" << endl;
+	}
+	else { //25% chance of creeper
+		cout << "a creeper appears (hissss)" << endl;
+	}
+}
