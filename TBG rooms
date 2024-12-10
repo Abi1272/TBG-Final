@@ -2,11 +2,20 @@
 #include<string>
 using namespace std;
 
+void island();
+
+void shop();
+
+int money = 0;
+
+int health = 100;
 
 string inventory[10];
 
 
 int main() {
+
+	bool firstmoney = false;
 
 	int room = 1;
 	string userInput = "potato"; //dummy value
@@ -20,10 +29,17 @@ int main() {
 
 		switch (room) {
 		case 1:
-			cout << "You wake up in a dimly lit room with stone walls. The air smells damp and a soft faint sound of water droplets echoed through the room. To the south, you notice a narrow archway with a door far along. It seems the only way foward. Type south to move through the archway into the next room." << endl;
+			cout << "You wake up in a dimly lit room with stone walls. The air smells damp and a soft faint sound of water droplets echoed   through the room. To the south, you notice a narrow archway with a door far along. It seems the only way foward. Type   south to move through the archway into the next room." << endl;
+			if (firstmoney == false) {
+				cout << "you found some money on the floor" << endl;
+				money += 10;
+				cout << "your money: " << money << endl;
+				firstmoney = true;
+			}
 			getline(cin, userInput);
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
 				room = 2;
+
 			else
 				cout << "sorry not an option" << endl;
 			break;
@@ -34,12 +50,18 @@ int main() {
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 3;
 			else if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				room = 4;
+				if (inventory[3] == "key") {
+					cout << "you unlock the door with the key" << endl;
+					inventory[3] = " ";
+					room = 4;
+				}
+
 			else
 				cout << "sorry not an option" << endl;
 			break;
 
 		case 3:
+			island();
 			cout << "you are on island 1, you can go east to go back to room 2" << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
@@ -56,7 +78,11 @@ int main() {
 			else if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 6;
 			else if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				room = 7;
+				if (inventory[3] == "key") {
+					cout << "you unlock the door with the key" << endl;
+					inventory[3] = " ";
+					room = 7;
+				}
 			else
 				cout << "sorry not an option" << endl;
 			break;
@@ -83,7 +109,11 @@ int main() {
 			cout << "you are in room 4, you can go west to island 4, east to island 5, south to final island or north to go back to room 3" << endl;
 			cin >> userInput;
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				room = 10;
+				if (inventory[3] == "key") {
+					cout << "you unlock the door with the key" << endl;
+					inventory[3] = " ";
+					room = 10;
+				}
 			else if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 8;
 			else if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
@@ -130,24 +160,83 @@ int main() {
 	}//end game loop
 }//end game loop
 
-//function defintion: what the function actually DOES
-void MonsterGen() {
-	int num = rand() % 100 + 1; //generated a random number
-	cout << "we generated " << num << endl;
+void island() {
+	
+		int crab1 = 10;
+		int input;
+		int num;
+		cout << endl << endl << "-----------" << endl;
+		while (health > 0 && crab1 > 0) {
 
-	if (num < 15) { //15% chance of skele
-		cout << "a skeleton appears!" << endl;
+			//monster attack
+			if (inventory[1] == "armor") {
+				num = rand() % 10 + 10; // range from 10-20
+				cout << "you get hit by crab for " << num << " damage (reduced because of armor)" << endl << endl;
+				health -= num;
+			}
+			else {
+				num = rand() % 20 + 15; // range from 20-35
+				cout << "you get hit by crab for " << num << " damage" << endl << endl;
+				health -= num;
+
+				cout << "press 1 to attack, 2 to drink potion, 3 to try to escape" << endl << endl;
+				cin >> input;
+
+				switch (input) {
+				case 1:
+					//player attack
+					if (inventory[1] == "sword") {
+						num = rand() % 5 + 4; // range from 5-9
+						cout << "you hit the crab with the sword for" << num << " damage" << endl << endl;
+						crab1 -= num;
+					}
+					else {
+						num = rand() % 2 + 4; // range from 2 to 6
+						cout << "you punch the crab for" << num << " damage" << endl << endl;
+						crab1 -= num;
+					}
+					break;
+				case 2:
+					if (inventory[0] == "coconut") {
+						cout << "you drink the coconut and gain health!" << endl << endl;
+						health = 150;
+						inventory[0] = " "; // erases coconut
+					}
+					else cout << "you dont have a coconut in your inventory" << endl << endl;
+					break;
+				case 3: // run from crab
+					num = rand() % 100;
+					if (num > 75) {
+						cout << "you ran away succesfully" << endl << endl;
+						crab1 = 0;
+					}
+					else cout << "you are cornered by the crab!" << endl;
+					break;
+					
+				}
+
+				cout << "your health:" << health << endl << endl;
+				cout << "the crabs health is:" << crab1 << endl << endl;
+
+			}
+		}
 	}
-	else if (num < 20) { //5% chance of zombie
-		cout << "a zombie attempts to bite you!" << endl;
+
+
+void shop() {
+	char input = 'l';
+	cout << endl << "-------------" << endl;
+	cout << "You are in the shop" << endl;
+	while (input != 'q') {
+		cout << "type c for coconut for 5 dollars, s for the sword for 10 dollars, armor" << endl;
+
+
+
+
 	}
-	else if (num < 50) { //30% chance of spider
-		cout << "a spider crawls at you!" << endl;
-	}
-	else if (num < 75) { //25% chance of witch}
-		cout << "oh no, a witch!" << endl;
-	}
-	else { //25% chance of creeper
-		cout << "a creeper appears (hissss)" << endl;
-	}
+
+
+
+
+
 }
