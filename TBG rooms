@@ -1,20 +1,32 @@
 #include<iostream>
 #include<string>
+#include<Windows.h>
+#include<chrono>
 using namespace std;
+
+
+//function declaration
 
 void island();
 
 void shop();
 
+//void numberPuzzle();
+
 int money = 0;
 
-int health = 100;
+int PlayerHealth = 100;
 
 string inventory[10];
 
+bool win = false;
+
+
 
 int main() {
-
+	
+	srand(time(NULL));
+	//numberPuzzle(); //function call
 	bool firstmoney = false;
 
 	int room = 1;
@@ -45,16 +57,20 @@ int main() {
 			break;
 
 		case 2:
-			cout << "you are in room 2, you can go west or south" << endl;
+			cout << "you are in room 2, you can go west or south to locked door" << endl;
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 3;
 			else if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				if (inventory[3] == "key") {
+				if (inventory[1] == "key") {
 					cout << "you unlock the door with the key" << endl;
-					inventory[3] = " ";
+					inventory[1] = " ";
 					room = 4;
+
+				
 				}
+				else
+					cout << "The door is locked." << endl;
 
 			else
 				cout << "sorry not an option" << endl;
@@ -62,6 +78,12 @@ int main() {
 
 		case 3:
 			island();
+			if (win == true) {
+				if (PlayerHealth > 0) {
+					inventory[1] = "key";
+					cout << "you won a key go back to room 2 and unlock door!" << endl;
+				}
+			}
 			cout << "you are on island 1, you can go east to go back to room 2" << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
@@ -78,11 +100,13 @@ int main() {
 			else if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 6;
 			else if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				if (inventory[3] == "key") {
+				if (inventory[2] == "key") {
 					cout << "you unlock the door with the key" << endl;
-					inventory[3] = " ";
+					inventory[2] = " ";
 					room = 7;
 				}
+				else
+					cout << "The door is locked." << endl;
 			else
 				cout << "sorry not an option" << endl;
 			break;
@@ -97,6 +121,13 @@ int main() {
 			break;
 
 		case 6:
+			island();
+			if (win == true) {
+				if (PlayerHealth > 0) {
+					inventory[2] = "key";
+					cout << "you won a key go back to room 3 and unlock door!" << endl;
+				}
+			}
 			cout << "you are on island 2, you can go west to go back to room 3" << endl;
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
@@ -109,11 +140,15 @@ int main() {
 			cout << "you are in room 4, you can go west to island 4, east to island 5, south to final island or north to go back to room 3" << endl;
 			cin >> userInput;
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
-				if (inventory[3] == "key") {
-					cout << "you unlock the door with the key" << endl;
+				if (inventory[3] == "key" && inventory[4] == "key") {
+					cout << "you unlock the door with the keys" << endl;
 					inventory[3] = " ";
+					inventory[4] = " ";
 					room = 10;
 				}
+				else
+					cout << "The door is locked." << endl;
+
 			else if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 8;
 			else if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
@@ -125,6 +160,14 @@ int main() {
 			break;
 
 		case 8:
+			//numberPuzzle();
+			island();
+			if (win == true) {
+				if (PlayerHealth > 0) {
+					inventory[4] = "key";
+					cout << "you won a key go back to room 2 and unlock door!" << endl;
+				}
+			}
 			cout << "you are on island 5, you can go west to go back to room 4" << endl;
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
@@ -134,6 +177,13 @@ int main() {
 			break;
 
 		case 9:
+			island();
+			if (win == true) {
+				if (PlayerHealth > 0) {
+					inventory[3] = "key";
+					cout << "you won a key go back to room 2 and unlock door!" << endl;
+				}
+			}
 			cout << "you are on island 4, you can go east to go back to room 4" << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
@@ -143,7 +193,7 @@ int main() {
 			break;
 
 		case 10:
-			cout << "you are on the final island, find maltipoo!" << endl;
+			cout << "you are on the final island, find pibble!" << endl;
 			cin >> userInput;
 			if (userInput == "north" || userInput == "North" || userInput.compare("go north") == 0)
 				room = 10;
@@ -160,67 +210,77 @@ int main() {
 	}//end game loop
 }//end game loop
 
+
+//Function definition
+//void numberPuzzle() {
+//	int limit = 60;
+//	auto start = chrono::steady_clock::now();
+//	int num = rand() % 20 + 1; //gets number between 1-20
+//	int guess = -1;
+//	int timeleft = 60;
+//	system("color 4a");
+//	cout << "---------------------------------" << endl;
+//	cout << "a troll blocks the door... it says: guess a number between 1-20!" << endl;
+//	while (guess != num && timeleft > 0) {
+//		//this calculates time left
+//		auto now = chrono::steady_clock::now(); //get what time it is NOW
+//		timeleft = limit = chrono::duration_cast <chrono::seconds> (now - start).count();
+//		if (guess != num) {
+//			cout << "wrong answer!" << endl;
+//			cout << "time left:" << timeleft << endl;
+//		}
+//		else cout << "you got it!" << endl;
+//
+//	}
+//
+//}
+
+
+
+
 void island() {
-	
-		int crab1 = 10;
-		int input;
-		int num;
-		cout << endl << endl << "-----------" << endl;
-		while (health > 0 && crab1 > 0) {
 
-			//monster attack
-			if (inventory[1] == "armor") {
-				num = rand() % 10 + 10; // range from 10-20
-				cout << "you get hit by crab for " << num << " damage (reduced because of armor)" << endl << endl;
-				health -= num;
-			}
-			else {
-				num = rand() % 20 + 15; // range from 20-35
-				cout << "you get hit by crab for " << num << " damage" << endl << endl;
-				health -= num;
+	int MonsterHealth = 20; //local variable: only be seen and used by BattleSim
+	int damage;
+	char dummy;
+	cout << endl << endl << "----------------MONSTER BATTLE BEGINS--------------" << endl;
+	cout << "A crab attacks!" << endl;
+	while (PlayerHealth > 0 && MonsterHealth > 0) { //battle loop
 
-				cout << "press 1 to attack, 2 to drink potion, 3 to try to escape" << endl << endl;
-				cin >> input;
+		//monster fight 
+		damage = rand() % 11 + 5; //monster can bite for 5-15
+		cout << "A huge crab attacks you for " << damage << "dmg!" << endl;
+		PlayerHealth -= damage;
+		cout << "press any key to continue..." << endl;
+		cin >> dummy;
 
-				switch (input) {
-				case 1:
-					//player attack
-					if (inventory[1] == "sword") {
-						num = rand() % 5 + 4; // range from 5-9
-						cout << "you hit the crab with the sword for" << num << " damage" << endl << endl;
-						crab1 -= num;
-					}
-					else {
-						num = rand() % 2 + 4; // range from 2 to 6
-						cout << "you punch the crab for" << num << " damage" << endl << endl;
-						crab1 -= num;
-					}
-					break;
-				case 2:
-					if (inventory[0] == "coconut") {
-						cout << "you drink the coconut and gain health!" << endl << endl;
-						health = 150;
-						inventory[0] = " "; // erases coconut
-					}
-					else cout << "you dont have a coconut in your inventory" << endl << endl;
-					break;
-				case 3: // run from crab
-					num = rand() % 100;
-					if (num > 75) {
-						cout << "you ran away succesfully" << endl << endl;
-						crab1 = 0;
-					}
-					else cout << "you are cornered by the crab!" << endl;
-					break;
-					
-				}
+		//player fights
+		damage = rand() % 5 + 5; //player swings 5-9
+		cout << "you hit the crab for " << damage << "dmg!" << endl;
+		MonsterHealth -= 20;
+		cout << "press any key to continue..." << endl;
+		cin >> dummy;
 
-				cout << "your health:" << health << endl << endl;
-				cout << "the crabs health is:" << crab1 << endl << endl;
+		if (PlayerHealth > 0)
+			cout << "Your health is now: " << PlayerHealth << endl;
+		else
+			cout << "you died. womp womp" << endl;
 
-			}
-		}
+		if (MonsterHealth > 0)
+			cout << "The crab's health is now: " << MonsterHealth << endl; //optional
+		else
+			cout << "you destroyed the crab, good job!" << endl;
+
+		cout << "press any key to continue..." << endl;
+		cin >> dummy;
+	}// end of battle loop
+	if (PlayerHealth > 0) {
+		win = true;
 	}
+	else
+		cout << "you lost!" << endl;
+	cout << "-----------------End OF BATTLE-------------" << endl << endl;
+}
 
 
 void shop() {
@@ -228,7 +288,7 @@ void shop() {
 	cout << endl << "-------------" << endl;
 	cout << "You are in the shop" << endl;
 	while (input != 'q') {
-		cout << "type c for coconut for 5 dollars, s for the sword for 10 dollars, armor" << endl;
+		cout << "type c for coconut for 5 dollars, s for the sword for 10 dollars" << endl;
 
 
 
