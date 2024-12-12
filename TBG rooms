@@ -4,6 +4,10 @@
 #include<chrono>
 using namespace std;
 
+//global variable
+string inventory[10];
+int money = 100;
+
 
 //function declaration
 
@@ -13,11 +17,9 @@ void shop();
 
 //void numberPuzzle();
 
-int money = 0;
-
 int PlayerHealth = 100;
 
-string inventory[10];
+
 
 bool win = false;
 
@@ -42,13 +44,7 @@ int main() {
 		switch (room) {
 		case 1:
 			cout << "You wake up in a dimly lit room with stone walls. The air smells damp and a soft faint sound of water droplets echoed   through the room. To the south, you notice a narrow archway with a door far along. It seems the only way foward. Type   south to move through the archway into the next room." << endl;
-			if (firstmoney == false) {
-				cout << "you found some money on the floor" << endl;
-				money += 10;
-				cout << "your money: " << money << endl;
-				firstmoney = true;
-			}
-			getline(cin, userInput);
+			cin >> userInput;
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
 				room = 2;
 
@@ -112,6 +108,7 @@ int main() {
 			break;
 
 		case 5:
+			shop();
 			cout << "you are in the shop! you can go east to back to room 3" << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
@@ -284,19 +281,44 @@ void island() {
 
 
 void shop() {
-	char input = 'l';
-	cout << endl << "-------------" << endl;
-	cout << "You are in the shop" << endl;
+	char input = 'p';
+	cout << endl << endl << "---------------" << endl;
+	cout << "SHOP" << endl;
 	while (input != 'q') {
-		cout << "type c for coconut for 5 dollars, s for the sword for 10 dollars" << endl;
+		cout << "press c for coconut ($10), s for sword ($20), a for armor ($50), press q to quit" << endl;
+		cin >> input;
+		switch (input) {
+		case 'c':
+			if (money >= 10) {
+				cout << "you got a coconut!" << endl;
+				inventory[5] = "coconut";
+				money -= 10;
+			}
+			else
+				cout << "you're broke!" << endl;
+			break;
 
+		case 's':
+			if (money >= 20) {
+				cout << "you got a sword" << endl;
+				inventory[1] = "sword";
+				money -= 20;
+			}
+			else
+				cout << "you're broke!" << endl;
+			break;
 
+		case 'a':
+			if (money >= 50) {
+				cout << "you got armor" << endl;
+				inventory[2] = "armor";
+				money -= 50;
+			}
+			else
+				cout << "you're broke!" << endl;
+			break;
 
-
+		}
 	}
-
-
-
-
-
+	cout << "---------------" << endl;
 }
