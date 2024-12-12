@@ -8,14 +8,14 @@ using namespace std;
 string inventory[10];
 int money = 100;
 
-
+ 
 //function declaration
 
 void island();
 
 void shop();
 
-//void numberPuzzle();
+void numberPuzzle();
 
 int PlayerHealth = 100;
 
@@ -32,6 +32,7 @@ int main() {
 	bool firstmoney = false;
 
 	int room = 1;
+	bool rm2 = false;
 	string userInput = "potato"; //dummy value
 	cout << endl << "--------------------------" << endl;
 	cout << "your inventory:";
@@ -53,8 +54,14 @@ int main() {
 			break;
 
 		case 2:
+			if (rm2 == false) {
+				numberPuzzle();
+				rm2 = true;
+			}
 			cout << "you are in room 2, you can go west or south to locked door" << endl;
 			cin >> userInput;
+			
+			
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 3;
 			else if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
@@ -190,7 +197,12 @@ int main() {
 			break;
 
 		case 10:
-			cout << "you are on the final island, find pibble!" << endl;
+			cout << "Congrats you made it to the final island, get pibble and get out of here but first buy some coconut!" << endl;
+			system("pause");
+			cout << "            __" << endl;
+			cout << "(\,--------'()'--o" << endl;
+			cout << "(_    ___    /~" << endl;
+			cout << " (_)_)  (_)_)" << endl;
 			cin >> userInput;
 			if (userInput == "north" || userInput == "North" || userInput.compare("go north") == 0)
 				room = 10;
@@ -209,28 +221,31 @@ int main() {
 
 
 //Function definition
-//void numberPuzzle() {
-//	int limit = 60;
-//	auto start = chrono::steady_clock::now();
-//	int num = rand() % 20 + 1; //gets number between 1-20
-//	int guess = -1;
-//	int timeleft = 60;
-//	system("color 4a");
-//	cout << "---------------------------------" << endl;
-//	cout << "a troll blocks the door... it says: guess a number between 1-20!" << endl;
-//	while (guess != num && timeleft > 0) {
-//		//this calculates time left
-//		auto now = chrono::steady_clock::now(); //get what time it is NOW
-//		timeleft = limit = chrono::duration_cast <chrono::seconds> (now - start).count();
-//		if (guess != num) {
-//			cout << "wrong answer!" << endl;
-//			cout << "time left:" << timeleft << endl;
-//		}
-//		else cout << "you got it!" << endl;
-//
-//	}
-//
-//}
+void numberPuzzle() {
+	int limit = 30;
+	auto start = chrono::steady_clock::now();
+	int num = rand() % 20 + 1; //gets number between 1-20
+	int guess = -1;
+	
+	int timeleft = 30;
+	system("color 4f");
+	cout << "---------------------------------" << endl;
+	cout << "an Abi blocks the door... it says: guess a number between 1-20!" << endl;
+	while (guess != num && timeleft > 0) {
+		//this calculates time left
+		auto now = chrono::steady_clock::now(); //get what time it is NOW
+		timeleft = limit - chrono::duration_cast <chrono::seconds> (now - start).count();
+		cin >> guess;
+		if (guess != num) {
+			cout << "wrong answer!" << endl;			
+			cout << "time left:" << timeleft << endl;
+		}
+		else cout << "you got it!" << endl;
+
+	}
+	cout << "good bye" << endl;
+	system("color 0f");
+}
 
 
 
@@ -282,7 +297,7 @@ void island() {
 
 void shop() {
 	char input = 'p';
-	cout << endl << endl << "---------------" << endl;
+	cout << endl << endl <<  "----------------SHOP--------------" << endl;
 	cout << "SHOP" << endl;
 	while (input != 'q') {
 		cout << "press c for coconut ($10), s for sword ($20), a for armor ($50), press q to quit" << endl;
