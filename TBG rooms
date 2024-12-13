@@ -2,6 +2,7 @@
 #include<string>
 #include<Windows.h>
 #include<chrono>
+#pragma comment(lib, "winmm.lib")
 using namespace std;
 
 //global variable
@@ -17,7 +18,7 @@ void shop();
 
 void numberPuzzle();
 
-int PlayerHealth = 100;
+int PlayerHealth = 60;
 
 
 
@@ -40,7 +41,7 @@ int main() {
 		cout << inventory[i] << " | ";
 	cout << endl;
 
-	while (userInput != "quit") { //game loop
+	while (userInput != "quit" && PlayerHealth > 0) { //game loop
 
 		switch (room) {
 		case 1:
@@ -197,17 +198,14 @@ int main() {
 			break;
 
 		case 10:
-			cout << "Congrats you made it to the final island, get pibble and get out of here but first buy some coconut!" << endl;
+			cout << "Congrats you made it to the final island, get pibble." << endl;
 			system("pause");
 			cout << "            __" << endl;
 			cout << "(\,--------'()'--o" << endl;
 			cout << "(_    ___    /~" << endl;
 			cout << " (_)_)  (_)_)" << endl;
+			PlaySound(TEXT("dog_bark5.wav"), NULL, SND_FILENAME);
 			cin >> userInput;
-			if (userInput == "north" || userInput == "North" || userInput.compare("go north") == 0)
-				room = 10;
-			else
-				cout << "sorry not an option" << endl;
 			break;
 
 		}
