@@ -59,7 +59,8 @@ int main() {
 				numberPuzzle();
 				rm2 = true;
 			}
-			cout << "you are in room 2, you can go west or south to locked door" << endl;
+			cout << "As you enter the archway, you notice the same stone walls and a flickering torchlight. To the west, a scratched  wooden door emits a faint glow. To the south, a heavy wooden door stands firmly locked. It has a keyhole. Go find the key!" << endl;
+			cout << "Type west to go through the wooden door or south to unlock the door." << endl;
 			cin >> userInput;
 			
 			
