@@ -45,7 +45,9 @@ int main() {
 
 		switch (room) {
 		case 1:
-			cout << "You wake up in a dimly lit room with stone walls. The air smells damp and a soft faint sound of water droplets echoed   through the room. To the south, you notice a narrow archway with a door far along. It seems the only way foward. Type   south to move through the archway into the next room." << endl;
+			cout << "You wake up in a dimly lit room with stone walls. The air smells damp and a soft faint sound of water droplets echoed   through the room." << endl;
+			cout << " " << endl;
+			cout << "To the south, you notice a narrow archway with a door far along. It seems the only way foward.Type south to move through the archway into the next room." << endl;
 			cin >> userInput;
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
 				room = 2;
@@ -60,7 +62,8 @@ int main() {
 				rm2 = true;
 			}
 			cout << "As you enter the archway, you notice the same stone walls and a flickering torchlight. To the west, a scratched  wooden door emits a faint glow. To the south, a heavy wooden door stands firmly locked. It has a keyhole. Go find the key!" << endl;
-			cout << "Type west to go through the wooden door or south to unlock the door." << endl;
+			cout << " " << endl;
+			cout << "You are in room two type west to go through the wooden door or south to unlock the firm door." << endl;
 			cin >> userInput;
 			
 			
@@ -89,7 +92,12 @@ int main() {
 					cout << "you won a key go back to room 2 and unlock door!" << endl;
 				}
 			}
-			cout << "you are on island 1, you can go east to go back to room 2" << endl;
+			
+			cout << "You step through the door and suddenly find yourself on an island. Crabs emerge from the shadows, their shiny claws are gleaming." << endl;
+			cout << " " << endl;
+			cout << " Defeat them, and they drop a key for you to take." << endl;
+			cout << " " << endl;
+			cout << "Type east to go back to room 2 and unlock the door!" << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 2;
@@ -98,7 +106,16 @@ int main() {
 			break;
 
 		case 4:
-			cout << "you are in room 3, you can go west to the shop, east to island 2, or south to next room" << endl;
+			cout << " " << endl;
+			cout << "As you enter, you see three doors this time." << endl;
+			cout << " " << endl;
+			cout << "To the west, a door with a thick layer of dust sits beneath a faded sign. You brush off the dust, revealing the word    'Shop'." << endl;
+			cout << " " << endl;
+			cout << "To the east, another door leads to what you can only assume is the second island. " << endl;
+			cout << " " << endl;
+			cout << "To the south, a heavy door is locked, and you will need a key to proceed. " << endl;
+			cout << " " << endl;
+			cout << "you are in room 3, you can go west to the shop, east to island 2, or south to unlock room." << endl;
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 5;
@@ -118,7 +135,8 @@ int main() {
 
 		case 5:
 			shop();
-			cout << "you are in the shop! you can go east to back to room 3" << endl;
+			cout << "You made it to the shop! Here, you can buy items to help you on your quest. You have $100 to spend." << endl;
+			cout << "Type east to back to room 3." << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 4;
@@ -134,7 +152,8 @@ int main() {
 					cout << "you won a key go back to room 3 and unlock door!" << endl;
 				}
 			}
-			cout << "you are on island 2, you can go west to go back to room 3" << endl;
+			cout << "You have arrived on the second island. You know what to do. Defeat the crabs and claim the key!" << endl;
+			cout << "Type west to go back to room 3." << endl;
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 4;
@@ -143,7 +162,7 @@ int main() {
 			break;
 
 		case 7:
-			cout << "you are in room 4, you can go west to island 4, east to island 5, south to final island or north to go back to room 3" << endl;
+			cout << "You are in room 4,type north to go back to room three to shop, west to the fourth island, type east for the fifth island or south to unlock the door!" << endl;
 			cin >> userInput;
 			if (userInput == "south" || userInput == "South" || userInput.compare("go south") == 0)
 				if (inventory[3] == "key" && inventory[4] == "key") {
@@ -174,7 +193,8 @@ int main() {
 					cout << "you won a key go back to room 2 and unlock door!" << endl;
 				}
 			}
-			cout << "you are on island 5, you can go west to go back to room 4" << endl;
+			cout << " I know what you are thinking, another island?  Defeat the crab to get the key!" << endl;
+			cout << "Type west to back to room 4 and unlock the door." << endl;
 			cin >> userInput;
 			if (userInput == "west" || userInput == "West" || userInput.compare("go west") == 0)
 				room = 7;
@@ -190,7 +210,8 @@ int main() {
 					cout << "you won a key go back to room 2 and unlock door!" << endl;
 				}
 			}
-			cout << "you are on island 4, you can go east to go back to room 4" << endl;
+			cout << " As you suspected another island, defeat the crab and get the key!" << endl;
+			cout << "Type east to return to Room 4." << endl;
 			cin >> userInput;
 			if (userInput == "east" || userInput == "East" || userInput.compare("go east") == 0)
 				room = 7;
@@ -229,7 +250,7 @@ void numberPuzzle() {
 	int timeleft = 30;
 	system("color 4f");
 	cout << "---------------------------------" << endl;
-	cout << "an Abi blocks the door... it says: guess a number between 1-20!" << endl;
+	cout << "an octopus blocks the door... it says: guess a number between 1-20!" << endl;
 	while (guess != num && timeleft > 0) {
 		//this calculates time left
 		auto now = chrono::steady_clock::now(); //get what time it is NOW
